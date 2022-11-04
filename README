@@ -131,3 +131,17 @@ CONTACT
 Please send any bugs to hnn@cs.cmu.edu.
 
 [Wed May  3 13:04:16 EDT 2006]
+
+
+22/11/4
+======
+The following two functions have been added
+- Dual stack support0
+- Explicit specification of client addresses
+
+![USAGE](img/example.png)
+
+
+
+
+

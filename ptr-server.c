@@ -434,8 +434,8 @@ void update_filter_list(
 
 		strcpy(p->src_ip_str, src_ip_str);
 		strcpy(p->dst_ip_str, dst_ip_str);
-		strcpy(p->src_ip, src_ip);  // あやしい
-		strcpy(p->dst_ip, dst_ip);
+		//strcpy(p->src_ip, src_ip);  // あやしい
+		//strcpy(p->dst_ip, dst_ip);
 
 		p->control_sock = newsd;
 		p->pre_time = get_time();
@@ -461,7 +461,7 @@ void update_filter_list(
 			exit(1);
 		}
 		while ((dst_port < END_PORT) && 
-			(bind(sock, res->ai_addr, res->ai_addrlen) < 0))
+			(bind(p->listen_sock, res->ai_addr, res->ai_addrlen) < 0))
 		{
 			dst_port++;
 			snprintf(sbuf, sizeof(sbuf), "%u", dst_port);

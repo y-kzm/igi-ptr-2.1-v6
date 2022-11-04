@@ -61,6 +61,7 @@ int probe_num = ProbeNum;
 FILE *trace_fp = NULL;
 int verbose = 0;
 int debug = 0;
+int designation_src = 0;
 
 double b_bw = 0, competing_bw, PTR_bw, a_bw, c_bw[MaxRepeat];
 int probing_phase_count = 0;
@@ -1144,7 +1145,7 @@ int main(int argc, char *argv[])
 {
 	int opt;
 
-	while ((opt = getopt(argc, argv, "k:l:n:s:p:f:dhv")) != EOF)
+	while ((opt = getopt(argc, argv, "I:k:l:n:s:p:f:dhv")) != EOF)
 	{
 		switch ((char)opt)
 		{
@@ -1180,7 +1181,10 @@ int main(int argc, char *argv[])
 				exit(1);
 			}
 			break;
-
+		case 'I':
+			strcpy(src, optarg);
+			designation_src = 1;
+			break;
 		case 'd':
 			debug = 1;
 			break;

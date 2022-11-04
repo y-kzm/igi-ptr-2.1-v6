@@ -128,6 +128,7 @@ void Usage()
 	printf("\t-v      verbose mode.\n");
 	printf("\t-d      debug mode.\n");
 	printf("\t-h      print this message.\n");
+	printf("\t-I <addres> \n");
 	printf("dst_address     can be either an IP address or a hostname\n\n");
 
 	printf("### IPv6 enabled measurement ###\n");

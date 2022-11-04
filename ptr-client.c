@@ -128,7 +128,7 @@ void Usage()
 	printf("\t-v      verbose mode.\n");
 	printf("\t-d      debug mode.\n");
 	printf("\t-h      print this message.\n");
-	printf("\t-I <addres> \n");
+	printf("\t-I 	  <address> \n");
 	printf("dst_address     can be either an IP address or a hostname\n\n");
 
 	printf("### IPv6 enabled measurement ###\n");
@@ -363,7 +363,7 @@ int init_sockets(struct sockaddr *dst_ip)
 
 	memset(&hints2, 0, sizeof(hints2));
 	hints2.ai_family =  AF_UNSPEC; 
-	snprintf(sbuf, sizeof(sbuf), "%u", dst_port);
+	snprintf(sbuf, sizeof(sbuf), "%u", probing_port);
 	err = getaddrinfo(dst, sbuf, &hints2, &res2); 
 	if (err) {
 		printf("getaddrinfo : %s\n", gai_strerror(err));
@@ -384,7 +384,7 @@ int init_sockets(struct sockaddr *dst_ip)
         struct sockaddr_in6 c_addr;
         memset(&c_addr, 0, sizeof(c_addr));
         c_addr.sin6_family = AF_INET6;
-        c_addr.sin6_port = htons(probing_port);
+        c_addr.sin6_port = htons(0);
         inet_pton(AF_INET6, src, &c_addr.sin6_addr);
         res->ai_addr = (struct sockaddr *)&c_addr;
         if (bind(probing_sock, res->ai_addr, res->ai_addrlen) < 0) {
@@ -600,7 +600,6 @@ void init_connection()
 		}
 	}
 
-	++dst_port;
 	snprintf(sbuf, sizeof(sbuf), "%u", dst_port);
 	result = connect(control_sock, res->ai_addr, res->ai_addrlen);
 	while ((result < 0) && (dst_port < END_PORT))

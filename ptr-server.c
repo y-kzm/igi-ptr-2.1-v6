@@ -447,26 +447,27 @@ void update_filter_list(
 		/* get the listening sock and port for the */
 		hints.ai_family =  AF_INET6;
 		hints.ai_socktype = SOCK_DGRAM;
-		hints.ai_flags = AI_PASSIVE;
+		hints.ai_flags = AI_PASSIVE;	
 		dst_port++;
 		snprintf(sbuf, sizeof(sbuf), "%u", dst_port);
 		err = getaddrinfo(NULL, sbuf, &hints, &res); 
 		if (err) {
 			printf("getaddrinfo[455]: %s\n", gai_strerror(err));
 			exit(1);
-		}
+		}	
 		p->listen_sock = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
 		if (p->listen_sock < 0) {
 			perror("p->listen_sock");
 			exit(1);
 		}
+
 		while ((dst_port < END_PORT) && 
 			(bind(p->listen_sock, res->ai_addr, res->ai_addrlen) < 0))
 		{
 			dst_port++;
 			snprintf(sbuf, sizeof(sbuf), "%u", dst_port);
 			err = getaddrinfo(NULL, sbuf, &hints, &res);
-			if (err != 0) {
+			if (err) {
 				printf("getaddrinfo[465]: %s\n", gai_strerror(err));
 				exit(1);
 			}
@@ -517,7 +518,7 @@ void check_client()
 	int err;
 	char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
 
-	src_size = sizeof(struct sockaddr);  // #####
+	src_size = sizeof(struct sockaddr_storage);
 	newsd = accept(sock, (struct sockaddr *)&src_addr, &src_size);
 	if (newsd <= 0)
 		return;
